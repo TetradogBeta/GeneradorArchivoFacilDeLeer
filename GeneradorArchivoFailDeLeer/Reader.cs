@@ -25,7 +25,7 @@ namespace GeneradorArchivoFacilDeLeer
 
         public ElementoBinario Serializador { get; set; }
         SortedList<long, T> Diccionary { get; set; }
-
+        public int Count => Index.Length;
         public T this[long index]
         {
             get
@@ -41,6 +41,7 @@ namespace GeneradorArchivoFacilDeLeer
                     else data = File.SubArray(Index[index]);
 
                     item = (T)Serializador.GetObject(data);
+                    Diccionary.Add(index, item);
                 }
                 else item = Diccionary[index];
                 return item;
@@ -50,8 +51,8 @@ namespace GeneradorArchivoFacilDeLeer
         private void RefreshHeader()
         {
             int offset = 0;
-            long entradas = BitConverter.ToInt64(File, offset);
-            offset += sizeof(long);
+            int entradas = BitConverter.ToInt32(File, offset);
+            offset += sizeof(int);
             Index = new int[entradas];
             for(long i = 0; i < entradas; i++)
             {

@@ -6,7 +6,7 @@ namespace GeneradorArchivoFacilDeLeer
     {
         static void Main(string[] args)
         {
-            File.WriteAllBytes(args[0] + ".out", StringReader.Create(File.ReadAllText(args[0])));
+            File.WriteAllBytes(args[0] + ".out", StringReader.Create(File.ReadAllLines(args[0])));
         }
     }
 }
